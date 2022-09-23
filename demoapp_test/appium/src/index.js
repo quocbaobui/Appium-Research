@@ -5,16 +5,13 @@ const { byValueKey } = require('appium-flutter-finder');
 
 const opts = {
   port: 4723,
-  // path: '/wd/hub',
   path: '/',
   capabilities: {
     "platformName": 'Android',
-    "appium:deviceName": 'Redmi Note 9s',
+    "appium:deviceName": 'Clover Flex',
     "appium:version": '10.0',
-    "appium:app": '/Users/quocbao/Documents/Bao/Learning/Appium/demoapp_test/build/app/outputs/apk/debug/app-debug.apk',
+    "appium:app": '/Users/quocbao/Documents/FBM/Appium-Research/demoapp_test/build/app/outputs/apk/debug',
     "appium:automationName": 'Flutter',
-    // "appium:appPackage":"com.example.demoapp_test",
-    // "appium:appActivity":"com.example.demoapp_test.MainActivity"
   },
 };
 
@@ -46,6 +43,8 @@ const opts = {
   assert.strictEqual(await driver.getElementText(counterTextFinder), '0');
 
   await driver.elementClick(buttonFinder);
+
+
   await driver.touchAction({
     action: 'tap',
     element: { elementId: buttonFinder }
@@ -53,5 +52,5 @@ const opts = {
 
   assert.strictEqual(await driver.getElementText(counterTextFinder), '2');
 
-  // driver.deleteSession();
+  driver.deleteSession();
 })();
