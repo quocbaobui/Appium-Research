@@ -1,3 +1,4 @@
+import 'package:demoapp_test/login_demo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_driver/driver_extension.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Automation Testing Demo'),
     );
   }
 }
@@ -123,7 +124,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 icon: const Icon(Icons.remove),
                 key: const Key('decrease_tester'),
-                label: const Text('Decrease'))
+                label: const Text('Decrease')),
+            Padding(
+              padding: const EdgeInsets.only(top: 54),
+              child: ElevatedButton(
+                key: const Key('btn_login_screen_key'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: ((context) => const LoginScreen())));
+                },
+                child: const Text('Login Screen'),
+              ),
+            )
           ],
         ),
       ),

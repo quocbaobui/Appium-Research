@@ -1,6 +1,9 @@
+
+
+
 const wdio = require('webdriverio');
 const assert = require('assert');
-const { byValueKey } = require('appium-flutter-finder');
+const { byValueKey, byText } = require('appium-flutter-finder');
 
 
 const opts = {
@@ -8,9 +11,9 @@ const opts = {
   path: '/',
   capabilities: {
     "platformName": 'Android',
-    "appium:deviceName": 'Clover Flex',
+    "appium:deviceName": 'Redmi Note 9S',
     "appium:version": '10.0',
-    "appium:app": '/Users/quocbao/Documents/FBM/Appium-Research/demoapp_test/build/app/outputs/apk/debug',
+    "appium:app": '/Users/quocbao/Documents/FBM/Appium-Research/demoapp_test/build/app/outputs/apk/debug/app-debug.apk',
     "appium:automationName": 'Flutter',
   },
 };
@@ -18,21 +21,12 @@ const opts = {
 (async () => {
   console.log('Initial app testing');
 
-  const counterTextFinder = byValueKey('counter_tester');
-  const buttonFinder = byValueKey('increment_tester');
-
-  console.log("counterTextFinder" + counterTextFinder +"\n");
-  console.log("buttonFinder" + buttonFinder + "\n");
-
-  console.log("opts" + opts);
-
   var driver;
 
 
   try {
     // ...
      driver = await wdio.remote(opts);
-
   } catch (err) {
     // ... handle it locally
     throw new Error(err.message);
@@ -40,17 +34,52 @@ const opts = {
 
 
 
-  assert.strictEqual(await driver.getElementText(counterTextFinder), '0');
+  // Test case 1 increment_tester
+  const txtCounterFinder = byValueKey('counter_tester');
+  const btnIncrementFinder = byValueKey('increment_tester');
 
-  await driver.elementClick(buttonFinder);
+  console.log("txtCounterFinder" + txtCounterFinder +"\n");
+  console.log("btnIncrementFinder" + btnIncrementFinder + "\n");
 
+  console.log("opts" + opts);
+
+
+  assert.strictEqual(await driver.getElementText(txtCounterFinder), '0');
+
+  await driver.elementClick(btnIncrementFinder);
+  await driver.elementClick(btnIncrementFinder);
+  await driver.elementClick(btnIncrementFinder);
+  await driver.elementClick(btnIncrementFinder);
+  await driver.elementClick(btnIncrementFinder);
+  await driver.elementClick(btnIncrementFinder);
+
+  assert.strictEqual(await driver.getElementText(txtCounterFinder), '6');
+
+
+  await driver.execute('flutter:waitFor', byValueKey('btn_login_screen_key'));
+
+  const btnLoginScrene = byValueKey('btn_login_screen_key');
+  await driver.elementClick(btnLoginScrene);
+
+
+  await driver.execute('flutter:waitFor', byValueKey('id_key'));
+  const tf_id_finder = byValueKey('id_key');
+  const tf_userName_finder = byValueKey('userName_key');
+  const tf_password_finder = byValueKey('password_key');
+  const btn_login_key = byValueKey('btn_login_key');
+
+  await driver.elementSendKeys(tf_id_finder,'12');
+  await driver.elementSendKeys(tf_userName_finder,'admin');
+  await driver.elementSendKeys(tf_password_finder,'123456');
 
   await driver.touchAction({
     action: 'tap',
-    element: { elementId: buttonFinder }
-  });
+    element: { elementId: btn_login_key }
+  });  
 
-  assert.strictEqual(await driver.getElementText(counterTextFinder), '2');
+  await driver.execute('flutter:waitFor', byText('home_screen_key'));
 
   driver.deleteSession();
+
+  // Test Case 2 Demo Login
 })();
