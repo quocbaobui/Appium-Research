@@ -77,7 +77,7 @@ const opts = {
     element: { elementId: btn_login_key }
   });  
 
-  await driver.execute('flutter:waitFor', byText('home_screen_key'));
+  await driver.execute('flutter:waitFor', byText('Home Screen'));
 
   driver.deleteSession();
 

@@ -128,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.only(top: 54),
               child: ElevatedButton(
-                key: const Key('btn_login_screen_key'),
+                // key: const Key('btn_login_screen_key'),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: ((context) => const LoginScreen())));

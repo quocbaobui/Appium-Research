@@ -61,7 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(top: 54, left: 54, right: 54),
             child: ElevatedButton(
-              key: const Key('btn_login_key'),
               onPressed: () {
                 if (idController.text == '12' &&
                     userNameContorller.text == 'admin' &&
